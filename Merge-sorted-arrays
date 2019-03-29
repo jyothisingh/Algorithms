@@ -1,0 +1,33 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+      int [] dup = new int[m];
+        for(int k=0;k<m;k++)
+            dup[k]=nums1[k];
+        int i,j,c=0;
+        for(i=0,j=0;i<m&&j<n;){
+            if(dup[i]<=nums2[j]){
+                nums1[c]=dup[i];
+                i++;
+                
+            }
+            else
+            {
+                nums1[c]=nums2[j];
+                j++;
+            }
+            c++;
+        }
+        while(i<m){
+            nums1[c]=dup[i];
+            i++;
+            c++;
+        }
+         while(j<n){
+            nums1[c]=nums2[j];
+            j++;
+            c++;
+        }
+    }
+    
+        
+    }
