@@ -1,42 +1,27 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
-    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+    public boolean isSymmetric(TreeNode root) {
+    
+        if (root == null)
+            return true;
+        return isMirror(root.left,root.right);
+    }
+    public  boolean isMirror(TreeNode left1,TreeNode right1){
+     
+        if(left1==null&&right1==null)
+            return true;
+         if(left1==null||right1==null)
+            return false;
        
-         int [] sorted = new int[nums1.length+nums2.length];       
-        int i,j,c=0;
-        for(i=0,j=0;i<nums1.length&&j<nums2.length;){
-            if(nums1[i]<=nums2[j]){
-                sorted[c]=nums1[i];
-                i++;
-                
-            }
-            else
-            {
-                sorted[c]=nums2[j];
-                j++;
-            }
-            c++;
-        }
-        while(i<nums1.length){
-            sorted[c]=nums1[i];
-            i++;
-            c++;
-        }
-         while(j<nums2.length){
-            sorted[c]=nums2[j];
-            j++;
-            c++;
-        }
-        if(sorted.length==1){
-            return (double) sorted[0];
-        }
-         int mid = (sorted.length)/2;
-        if((sorted.length)%2!=0){
-          
-            return (double)sorted[mid];
-        }
-  
-        return (double)(sorted[mid]  + sorted[mid-1])/2;
-        
-
+       
+        return (left1.val==right1.val) &&isMirror(left1.left,right1.right) && isMirror(right1.left,left1.right);
     }
 }
