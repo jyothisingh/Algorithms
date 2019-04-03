@@ -7,6 +7,7 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ //https://leetcode.com/problems/same-tree/submissions/
 class Solution {
     
     
@@ -21,7 +22,7 @@ class Solution {
         t1.addLast(p);
         t2.addLast(q);
     
-        while ( t1.toArray().length != 0 && t2.toArray().length != 0  ) {
+        while ( !(t1.isEmpty()) || !(t2.isEmpty() )) {
                             
             TreeNode rem1 = t1.removeFirst();
             TreeNode rem2 = t2.removeFirst();
