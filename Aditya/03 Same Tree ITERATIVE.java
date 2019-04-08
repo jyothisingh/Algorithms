@@ -7,67 +7,64 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+ //https://leetcode.com/problems/same-tree/submissions/
+//revised once
 class Solution {
     
     
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        
-        if ( p == null && q == null ) 
+        if ( p == null && q == null )
             return true;
-        if ( p == null || q == null )
+        if ( p == null || q == null ) 
             return false;
+        ArrayDeque<TreeNode> t1 = new ArrayDeque<>();
+        ArrayDeque<TreeNode> t2 = new ArrayDeque<>();
         
-        ArrayDeque<TreeNode> tree1 = new ArrayDeque<>();
-        ArrayDeque<TreeNode> tree2 = new ArrayDeque<>();
-        
-        tree1.addLast(p);
-        tree2.addLast(q);
+        t1.addLast(p);
+        t2.addLast(q);
+    
+        while ( !(t1.isEmpty()) || !(t2.isEmpty() )) {
+                            
+            TreeNode rem1 = t1.removeFirst();
+            TreeNode rem2 = t2.removeFirst();
             
-        while ( !(tree1.isEmpty()) || !(tree1.isEmpty())) {
-            TreeNode firstElementTree1 = tree1.removeFirst();
-            TreeNode firstElementTree2 = tree2.removeFirst();
-            
-            if ( firstElementTree1.val != firstElementTree2.val ) {
+            if ( rem1.val != rem2.val ) {
                 return false;
             }
             
+            TreeNode l1 = rem1.left;
+            TreeNode r1 = rem1.right;
             
-            if ( firstElementTree1.left != null && firstElementTree2.left != null ){
-                if (firstElementTree1.left.val !=firstElementTree2.left.val )
+            TreeNode l2 = rem2.left;
+            TreeNode r2 = rem2.right;
+            
+            if ( l1 != null && l2 != null ) {
+                if ( l1.val != l2.val )
                     return false;
-            }  else if ( firstElementTree1.left == null ^ firstElementTree2.left == null  )
-                return false;
-              
-            if ( firstElementTree1.right != null && firstElementTree2.right != null ){
-                if (firstElementTree1.right.val !=firstElementTree2.right.val )
+            } else if (r1 == null  ^ r2 == null ) {
                     return false;
-            } else if ( firstElementTree1.right == null ^ firstElementTree2.right == null  )
-                return false;
-             
-            if ( firstElementTree1.left != null )
-                tree1.addLast(firstElementTree1.left);
-            if ( firstElementTree1.right != null )
-                tree1.addLast(firstElementTree1.right);
-            if (firstElementTree2.left != null )
-                tree2.addLast(firstElementTree2.left);
-            if (firstElementTree2.right != null )
-                tree2.addLast(firstElementTree2.right);
+            } 
+            if ( r1 != null && r2 != null ) {
+                if ( r1.val != r2.val )
+                    return false;
+            } else if ( r1 == null ^ r2 == null) {
+                    return false;
+            }
+        
+            if ( l1 != null ) t1.addLast(l1);
+            if ( r1 != null ) t1.addLast(r1);
+            if ( l2 != null ) t2.addLast(l2);
+            if ( r2 != null ) t2.addLast(r2);
+        
         }
         
+        if( t1 == null && t2 == null ) {
+            return true;
+        }
+        if ( t1 == null || t2 == null ) {
+            return false;
+        }
         return true;
         
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
